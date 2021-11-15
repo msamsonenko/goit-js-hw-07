@@ -1,7 +1,8 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
-{/* <div class="gallery__item">
+{
+  /* <div class="gallery__item">
   <a class="gallery__link" href="large-image.jpg">
     <img
       class="gallery__image"
@@ -10,40 +11,42 @@ import { galleryItems } from './gallery-items.js';
       alt="Image description"
     />
   </a>
-</div> */}
-
-const galleryEl = document.querySelector('.gallery');
-
-galleryEl.addEventListener('click', onImageClick);
-
-function onImageClick (event){
-    if(event.target.nodeName !== 'IMAGE'){
-        return;
-    }
+</div> */
 }
 
-const displayGallery = function (images){
-    images.map(({preview, original, description}) =>{
-       
-        const galleryItemEl = document.createElement('div');
-        galleryItemEl.classList.add('gallery__item');
+const galleryContainer = document.querySelector(".gallery");
 
-        const galleryLinkEl = document.createElement('a');
-        galleryLinkEl.classList.add('gallery__link');
-        galleryLinkEl.setAttribute('href', original);
+galleryContainer.addEventListener("click", onImageClick);
 
-        const galleryImgEl =  document.createElement('img');
-        galleryImgEl.classList.add('gallery__image');
-        galleryImgEl.setAttribute('alt', description);
-        galleryImgEl.setAttribute('src', preview);
-        galleryImgEl.setAttribute('data-source', original);
-
-        galleryLinkEl.appendChild(galleryImgEl);
-        galleryItemEl.appendChild(galleryLinkEl);
-        galleryEl.appendChild(galleryItemEl);
-    })
+function onImageClick(event) {
+  if (event.target.nodeName !== "IMAGE") {
+    return;
+  }
 }
 
-displayGallery(galleryItems);
+const markup = galleryItems.map(({ preview, original, description }) => {
+  const galleryItemEl = document.createElement("div");
+  galleryItemEl.classList.add("gallery__item");
+  console.log(galleryItemEl);
+
+  const galleryLinkEl = document.createElement("a");
+  galleryLinkEl.classList.add("gallery__link");
+  galleryLinkEl.href = original;
+  console.log(galleryLinkEl);
+
+  const galleryImgEl = document.createElement("img");
+  galleryImgEl.classList.add("gallery__image");
+  galleryImgEl.alt = description;
+  galleryImgEl.src = preview;
+  galleryImgEl.dataset.source = original;
+  console.log(galleryImgEl);
+
+  galleryLinkEl.appendChild(galleryImgEl);
+  galleryItemEl.appendChild(galleryLinkEl);
+
+  return galleryItemEl;
+});
+
+galleryContainer.append(...markup);
 
 console.log(galleryItems);
